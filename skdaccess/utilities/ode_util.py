@@ -146,7 +146,7 @@ def get_query_url(target, mission, instrument, product_type,
            + max_ob_time + query_type + results + output + number_product_limit \
            + result_offset_number + product_id
             
-def get_files_urls(query_url, file_name = '*', print_info = False):
+def get_files_urls(query_url, file_name = '*', print_info = False, limit_file_types = 'Product'):
     '''
     Retrieve the files' URLs based on a query from ODE REST interface
     Adapted from the Orbital Data Explorer (ODE) REST Interface Manual
@@ -154,6 +154,7 @@ def get_files_urls(query_url, file_name = '*', print_info = False):
     @param query_url: URL resulting from the query of ODE
     @param file_name: File name to look for, with wildcards (*) allowed
     @param print_info: Print the files that will be downloaded
+    @param limit_file_types: Type of file type to select in results (Default: Product)
     
     @return List of URLs
     '''
@@ -167,8 +168,7 @@ def get_files_urls(query_url, file_name = '*', print_info = False):
     if len(error) > 0:
         print('\nError:', error[0].firstChild.data)
         return None
-    
-    limit_file_types = 'Product'
+
     file_name = file_name.replace('*', '.')
     
     products = xml_results.getElementsByTagName('Product')
@@ -207,7 +207,7 @@ def get_files_urls(query_url, file_name = '*', print_info = False):
 def query_files_urls(target, mission, instrument, product_type,
                      western_lon, eastern_lon, min_lat, max_lat,
                      min_ob_time, max_ob_time, product_id, file_name,
-                     number_product_limit, result_offset_number):
+                     number_product_limit, result_offset_number, limit_file_types = 'Product'):
     '''
     Retrieve the URL locations based on a query using ODE REST interface
     
@@ -225,6 +225,7 @@ def query_files_urls(target, mission, instrument, product_type,
     @param file_name: File name to look for, with wildcards (*) allowed
     @param number_product_limit: Maximal number of products to return (100 at most)
     @param result_offset_number: Offset the return products, to go beyond the limit of 100 returned products
+    @param limit_file_types: Type of file type to select in results (Default: Product)
     
     @return List of URL locations
     '''
@@ -240,7 +241,7 @@ def query_files_urls(target, mission, instrument, product_type,
                               western_lon, eastern_lon, min_lat, max_lat,
                               min_ob_time, max_ob_time, product_id,
                               query_type, output, results,
-                              number_product_limit, result_offset_number)
+                              number_product_limit, result_offset_number, limit_file_types)
                 
     print('Query URL:', query_url)
     print('\nFiles that will be downloaded (if not previously downloaded):')
