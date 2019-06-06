@@ -28,6 +28,7 @@ from skdaccess.utilities.ode_util import *
 
 # 3rd party imports
 import matplotlib.image as mpimg
+from tqdm import tqdm
 
 # Standard library imports
 from collections import OrderedDict
@@ -99,7 +100,7 @@ class DataFetcherMini(DataFetcherCache):
         # Gather the data and meta-data
         data_dict = OrderedDict()
         # print("File Urls = ", file_urls)
-        for file, key in zip(downloaded_files, file_urls.keys()):
+        for file, key in tqdm(zip(downloaded_files, file_urls.keys())):
             if file.endswith('.jpg') or file.endswith('.png'):
                 file_description = file_urls.get(key)[1]
                 # print("File description = ", file_description)
@@ -111,5 +112,6 @@ class DataFetcherMini(DataFetcherCache):
                 data_dict[product][file_description] = mpimg.imread(file)
 
         # print("data dict = ", data_dict)
+        print("Processing complete")
 
         return ImageWrapper(obj_wrap=data_dict)
