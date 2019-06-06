@@ -184,6 +184,9 @@ def get_files_urls(query_url, file_name = '*', print_info = False, limit_file_ty
             file_description = product_file.getElementsByTagName('Description')[0]
             local_filename = file_url.firstChild.data.split('/')[-1]
             local_file_extension = local_filename.split('.')[-1]
+            if limit_file_types == 'Browse':
+                if local_file_extension.endswith('JP2') or local_file_extension.endswith('IMG'):
+                    continue
             if re.search(file_name, local_filename) is not None:
                 # Restriction on the file type to download
                 if len(limit_file_types) > 0:
