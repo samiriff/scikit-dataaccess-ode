@@ -32,6 +32,7 @@ import matplotlib.image as mpimg
 # Standard library imports
 from collections import OrderedDict
 
+
 class DataFetcherMini(DataFetcherCache):
     ''' Data Fetcher from the Orbital Data Explorer (ODE) '''
 

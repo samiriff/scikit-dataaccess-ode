@@ -241,11 +241,11 @@ def query_files_urls(target, mission, instrument, product_type,
                               western_lon, eastern_lon, min_lat, max_lat,
                               min_ob_time, max_ob_time, product_id,
                               query_type, output, results,
-                              number_product_limit, result_offset_number, limit_file_types)
+                              number_product_limit, result_offset_number)
                 
     print('Query URL:', query_url)
     print('\nFiles that will be downloaded (if not previously downloaded):')
-    file_urls = get_files_urls(query_url, file_name, print_info = True)
+    file_urls = get_files_urls(query_url, file_name, print_info = True, limit_file_types=limit_file_types)
     if file_urls is None:
         return OrderedDict()
     elif len(file_urls) > 0:
